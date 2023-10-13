@@ -164,6 +164,39 @@ func (list *DoubLinkedList) AppendInOrder(data int, text string) {
 	}
 }
 
+func (list *DoubLinkedList) DeleteByData(nodeData int) {
+	if list.IsEmpty() {
+		return 
+	}
+
+	current := list.head
+
+	 
+	if current.data == nodeData {
+		list.head = current.next
+		if list.head != nil {
+			list.head.previous = nil
+		} else {
+			list.tail = nil
+		}
+		return
+	}
+
+	for current != nil {
+		if current.data == nodeData {
+	
+			current.previous.next = current.next
+			if current.next != nil {
+				current.next.previous = current.previous
+			} else {
+				list.tail = current.previous
+			}
+			return
+		}
+		current = current.next
+	}
+}
+
 func main() {
 	doubleLikedList := DoubLinkedList{}
 	doubleLikedList.Append(1, "primeiro dado da lista")
@@ -175,6 +208,11 @@ func main() {
 	doubleLikedList.AppendBefore(24, "teste append before no tail", 2)
 	doubleLikedList.AppendAfter(66, "teste de append after no tail", 2)
 	doubleLikedList.AppendInOrder(64, "teste append em odem no in order")
+        doubleLikedList.AppendInOrder(-1,"teste no head")
+        doubleLikedList.AppendInOrder(69, "teste no tail")
+        doubleLikedList.DeleteByData(69)
+        doubleLikedList.DeleteByData(-1)
+        doubleLikedList.DeleteByData(17)
 	fmt.Println("imprimindo ao contrario")
 	doubleLikedList.DisplayBackward()
 	fmt.Println("imprimindo em ordem crescente")
