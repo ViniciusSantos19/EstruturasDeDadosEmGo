@@ -23,6 +23,29 @@ func (list *LinkedList) Display() {
 
 }
 
+func (list *LinkedList) IsOnList(data int) bool {
+  if list.IsEmpty() {
+    return false
+  }
+
+  current := list.head
+
+  for current != nil  {
+    if(current.data == data) {
+      return true
+    }
+    current = current.next
+  }
+
+  return false
+
+}
+
+
+func (list *LinkedList) IsEmpty() bool {
+	return list.head == nil
+}
+
 func (list *LinkedList) SizeOf() int {
 	current := list.head
 	size := 0
@@ -37,7 +60,7 @@ func (list *LinkedList) SizeOf() int {
 func (list *LinkedList) Append(data int, text string) {
 	newNode := &Node{data, text, nil}
 
-	if list.head == nil {
+	if list.IsEmpty() {
 		list.head = newNode
 		return
 	}
@@ -51,10 +74,22 @@ func (list *LinkedList) Append(data int, text string) {
 
 }
 
+func (list *LinkedList) AppendInTheHead(data int, text string) {
+	newNode := &Node{data, text, nil}
+
+	if list.IsEmpty() {
+		list.head = newNode
+		return
+	}
+
+	newNode.next = list.head
+	list.head = newNode
+}
+
 func (list *LinkedList) AppendBefore(data int, text string, nodeData int) {
 	newNode := &Node{data, text, nil}
 
-	if list.head == nil {
+	if list.IsEmpty() {
 		list.head = newNode
 		return
 	}
@@ -74,7 +109,7 @@ func (list *LinkedList) AppendBefore(data int, text string, nodeData int) {
 func (list *LinkedList) AppendAfter(data int, text string, nodeData int) {
 	newNode := &Node{data, text, nil}
 
-	if list.head == nil {
+	if list.IsEmpty() {
 		list.head = newNode
 		return
 	}
@@ -94,7 +129,7 @@ func (list *LinkedList) AppendAfter(data int, text string, nodeData int) {
 func (list *LinkedList) AppendInOrder(data int, text string) {
 	newNode := &Node{data, text, nil}
 
-	if list.head == nil || data < list.head.data {
+	if list.IsEmpty() || data < list.head.data {
 		newNode.next = list.head
 		list.head = newNode
 		return
@@ -112,7 +147,7 @@ func (list *LinkedList) AppendInOrder(data int, text string) {
 }
 
 func (list *LinkedList) Remove(data int) {
-	if list.head == nil {
+	if list.IsEmpty() == nil {
 		return
 	}
 
@@ -133,7 +168,7 @@ func (list *LinkedList) Remove(data int) {
 }
 
 func (list *LinkedList) InsertionSort() {
-	if list.head == nil || list.head.next == nil {
+	if list.IsEmpty() || list.head.next == nil {
 		return
 	}
 
@@ -152,7 +187,7 @@ func (list *LinkedList) InsertionSort() {
 
 }
 func (list *LinkedList) InsertedSort(newNode *Node) {
-	if list.head == nil || list.head.data >= newNode.data {
+	if list.IsEmpty() || list.head.data >= newNode.data {
 		newNode.next = list.head
 		list.head = newNode
 		return
@@ -171,7 +206,7 @@ func (list *LinkedList) InsertedSort(newNode *Node) {
 func (list *LinkedList) AppendAfer(data int, text string, nodeData int) {
 	newNode := &Node{data, text, nil}
 
-	if list.head == nil {
+	if list.IsEmpty() {
 		list.head = newNode
 		return
 	}
